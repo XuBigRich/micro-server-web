@@ -19,7 +19,7 @@ export const login = (data) => {
 
 export const removeLogin = () => {
     request({
-        url: '/user/oauth/revoke_token',
+        url: '/user/logout',
         method: 'get',
     });
 }

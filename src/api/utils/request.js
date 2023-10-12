@@ -35,6 +35,7 @@ service.interceptors.response.use(
         if ([401, 406].includes(res.data.code)) {
             // sessionStorage.clear(); // 接用户中心时慎用
             // localStorage.clear(); // 接用户中心时慎用
+            router.app.$options.store.commit('setOriginalRoute', router.currentRoute.fullPath);
             ElMessage.error(res.data.msg ? res.data.msg : '登录失效');
             router.push('/');
             return Promise.reject();

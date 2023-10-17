@@ -29,32 +29,19 @@ service.interceptors.request.use(
     }
 );
 
-// 响应拦截器
+// 响应拦截器， 路由跳转 是先请求，再跳转， 所以 拦截器 会先执行， 路由守卫后执行
 service.interceptors.response.use(
     res => {
-        if ([401, 406].includes(res.data.code)) {
+        if ([401, 406].includes(res.data.code)||['401', '403'].includes(res.data.data)) {
             // sessionStorage.clear(); // 接用户中心时慎用
             // localStorage.clear(); // 接用户中心时慎用
             router.app.$options.store.commit('setOriginalRoute', router.currentRoute.fullPath);
             ElMessage.error(res.data.msg ? res.data.msg : '登录失效');
             router.push('/');
             return Promise.reject();
-        } else if (res.data.code === 200) {
-            return Promise.resolve(res.data);
         } else {
-            /*
-             *401未授权,403授权过期,404资源未找到
-             * */
-            if (['401', '403'].includes(res.data.data)) {
-                if (localStorage['roles'] !== 'teacher') {
-                    localStorage['CLOUD-AFTER-CLASS-TOKEN'] = '';
-                    localStorage['userAccount'] = '';
-                    localStorage['roles'] = '';
-                    store.commit('SET_OUTSTATE', '!normal'); // 异常退出
-                    location.reload();
-                }
-            }
-            return Promise.reject(res.data);
+            store.commit('setOriginalRoute', null);
+            return Promise.resolve(res.data);
         }
     },
     error => {

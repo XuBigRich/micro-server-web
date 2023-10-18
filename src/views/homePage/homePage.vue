@@ -2,6 +2,7 @@
   <div class="home">
     <h1>Home Page</h1>
     <button @click="goToLogin">Go to Login</button>
+    <button @click="goToOrder">Go to Order</button>
   </div>
 </template>
 
@@ -17,6 +18,9 @@ export default {
       // 重定向到授权页面
       window.location.href = authorizationUrl;
     },
+    goToOrder() {
+      this.$route.push("/orderr")
+    }
   },
 };
 </script>

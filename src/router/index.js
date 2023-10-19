@@ -5,6 +5,7 @@ import homePage from '../views/homePage/homePage.vue';
 import loginPage from '../views/login/loginPage.vue';
 import orderPage from '../views/order/orderPage.vue';
 import store from '../store';
+
 const routes = [
     {
         path: '/',
@@ -32,10 +33,13 @@ const router = createRouter({
 });
 //路由守卫 记录请求信息
 router.beforeEach((to, from, next) => {
+    console.log("测1")
     // 如果用户未登录，记录原始的路由地址
-    if (store.state.originalRoute != null) {
+    if (to.meta.requiresAuth && store.state.originalRoute != null) {
+        console.log("测2")
         next(store.state.originalRoute);
     } else {
+        console.log("测3")
         // 用户已登录，继续导航
         next();
     }

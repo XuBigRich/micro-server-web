@@ -7,6 +7,9 @@
 </template>
 
 <script>
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
 export default {
   methods: {
     goToLogin() {
@@ -19,7 +22,8 @@ export default {
       window.location.href = authorizationUrl;
     },
     goToOrder() {
-      this.$route.push("/orderr")
+      console.log("测")
+      router.push("/order")
     }
   },
 };

@@ -25,6 +25,7 @@ service.interceptors.request.use(
         return config;
     },
     error => {
+        console.log("记录1err："+error)
         return Promise.reject(error);
     }
 );
@@ -32,6 +33,7 @@ service.interceptors.request.use(
 // 响应拦截器， 路由跳转 是先请求，再跳转， 所以 拦截器 会先执行， 路由守卫后执行
 service.interceptors.response.use(
     res => {
+        console.log("记录："+res)
         if ([401, 406].includes(res.data.code)||['401', '403'].includes(res.data.data)) {
             // sessionStorage.clear(); // 接用户中心时慎用
             // localStorage.clear(); // 接用户中心时慎用
@@ -45,6 +47,7 @@ service.interceptors.response.use(
         }
     },
     error => {
+        console.log("记录err："+error)
         return Promise.reject(error);
     }
 );

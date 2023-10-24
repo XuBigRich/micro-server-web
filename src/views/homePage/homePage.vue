@@ -3,6 +3,7 @@
     <h1>Home Page</h1>
     <button @click="goToLogin">Go to Login</button>
     <button @click="goToOrder">Go to Order</button>
+    <button @click="goToGrant">Go to Grant</button>
   </div>
 </template>
 
@@ -11,16 +12,13 @@
 export default {
   methods: {
     goToLogin() {
-      // 使用路由导航到登录页
-      // 构建OAuth2.0授权链接
-      const clientId = 'client1';
-      const redirectUri = 'http://localhost:9999/order';
-      const authorizationUrl = `http://localhost:8882/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
-      // 重定向到授权页面
-      window.location.href = authorizationUrl;
+      this.$router.push("/login");
     },
     goToOrder() {
       this.$router.push("/order");
+    },
+    goToGrant() {
+      this.$router.push("/grant");
     }
   },
 };

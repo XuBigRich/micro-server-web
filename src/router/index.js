@@ -2,7 +2,8 @@
 
 import {createRouter, createWebHistory} from 'vue-router';
 import homePage from '../views/homePage/homePage.vue';
-import loginPage from '../views/login/loginPage.vue';
+import loginPage from '@/views/oauth/login/loginPage.vue';
+import grantPage from '@/views/oauth/grant/grantPage.vue';
 import orderPage from '../views/order/orderPage.vue';
 import store from '../store';
 
@@ -24,6 +25,11 @@ const routes = [
         component: orderPage,
         //按道理讲 ，整个路由信息都应该由后端提供，包含这个meta
         meta: {requiresAuth: true}
+    },
+    {
+        path: '/grant',
+        component: grantPage
+        //按道理讲 ，整个路由信息都应该由后端提供，包含这个meta
     },
 ];
 

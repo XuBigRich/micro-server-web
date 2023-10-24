@@ -25,7 +25,6 @@ export const removeLogin = () => {
 }
 //订单列表
 export const orderList = () =>
-    console.log("获取订单列表")
     request({
         url: '/order/getOrderList',
         method: 'get',

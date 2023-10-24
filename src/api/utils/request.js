@@ -22,6 +22,7 @@ service.interceptors.request.use(
         if (localStorage.getItem('CLOUD-AFTER-CLASS-TOKEN')) {
             config.headers.Authorization = localStorage.getItem('CLOUD-AFTER-CLASS-TOKEN');
         }
+        config.withCredentials = true;
         return config;
     },
     error => {
@@ -37,7 +38,7 @@ service.interceptors.response.use(
         if ([401, 406].includes(res.data.code)||['401', '403'].includes(res.data.data)) {
             // sessionStorage.clear(); // 接用户中心时慎用
             // localStorage.clear(); // 接用户中心时慎用
-            router.app.$options.store.commit('setOriginalRoute', router.currentRoute.fullPath);
+            store.commit('setOriginalRoute', router.currentRoute.fullPath);
             ElMessage.error(res.data.msg ? res.data.msg : '登录失效');
             router.push('/');
             return Promise.reject();
@@ -47,7 +48,15 @@ service.interceptors.response.use(
         }
     },
     error => {
-        console.log("记录err："+error)
+        console.log("记录err："+error.request.status)
+        if ([401, 406].includes(error.request.status)||['401', '403'].includes(error.request.status)) {
+            // sessionStorage.clear(); // 接用户中心时慎用
+            // localStorage.clear(); // 接用户中心时慎用
+            store.commit('setOriginalRoute', router.currentRoute.fullPath);
+            ElMessage.error(error.request.data ? error.request.data  : '登录失效');
+            router.push('/');
+            return Promise.reject();
+        }
         return Promise.reject(error);
     }
 );

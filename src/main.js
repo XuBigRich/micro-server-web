@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import store from './store';
 import ElementPlus from 'element-plus';
+import '@/assets/styles/index.scss' // global css
 import 'element-plus/dist/index.css';
 import router from './router' // 确保引入了Vue Router配置
 const app = createApp(App);

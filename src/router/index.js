@@ -1,36 +1,43 @@
 // src/router/index.js
 
 import {createRouter, createWebHistory} from 'vue-router';
-import homePage from '../views/homePage/homePage.vue';
+import homePage from '../views/store/homePage/homePage.vue';
 import loginPage from '@/views/oauth/login/loginPage.vue';
 import grantPage from '@/views/oauth/grant/grantPage.vue';
-import orderPage from '../views/order/orderPage.vue';
+import orderPage from '../views/store/order/orderPage.vue';
 import store from '../store';
+import Layout from "@/layout";
 
 const routes = [
     {
-        path: '/',
-        redirect: '/home', // 重定向到默认路由
-    },
-    {
-        path: '/home',
-        component: homePage,
-    },
-    {
         path: '/login',
         component: loginPage,
-    },
-    {
-        path: '/order',
-        component: orderPage,
-        //按道理讲 ，整个路由信息都应该由后端提供，包含这个meta
-        meta: {requiresAuth: true}
-    },
-    {
+    }, {
         path: '/grant',
         component: grantPage
         //按道理讲 ，整个路由信息都应该由后端提供，包含这个meta
+    }, {
+        path: '',
+        redirect: '/index',
+        component: Layout,
+        meta: {requiresAuth: true},
+        children: [
+            {
+                path: '/index',
+                component: () => homePage,
+                name: 'Index',
+                meta: {title: '首页', icon: 'dashboard', affix: true}
+            }, {
+                path: '/order',
+                component: () => orderPage,
+                name: 'Order',
+                meta: {title: '订单页面', icon: 'dashboard', affix: true}
+            },
+        ]
+        //按道理讲 ，整个路由信息都应该由后端提供，包含这个meta
+
     },
+
 ];
 
 const router = createRouter({
@@ -47,5 +54,4 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
-
 export default router;

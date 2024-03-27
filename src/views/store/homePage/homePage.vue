@@ -1,10 +1,6 @@
 <template>
   <div class="home">
     <h1>Home Page</h1>
-    <button @click="goToSpringLogin">Go to Spring Login</button>
-    <button @click="goToLogin">Go to Login</button>
-    <button @click="goToOrder">Go to Order</button>
-    <button @click="goToGrant">Go to Grant</button>
   </div>
 </template>
 
@@ -22,15 +18,6 @@ export default {
     }
   },
   methods: {
-    goToLogin() {
-      this.$router.push("/login");
-    },
-    goToOrder() {
-      this.$router.push("/order");
-    },
-    goToGrant() {
-      this.$router.push("/grant");
-    },
     handleCode() {
       console.log("发送获取token请求")
     },

@@ -6,7 +6,18 @@
 
 <script>
 
+import {getToken} from "@/api/api";
+import {ElMessage} from "element-plus";
+
+
 export default {
+  data() {
+    return {
+      tokenParams: {
+        token: undefined
+      }
+    };
+  },
   mounted() {
     // 获取 URL 中的查询参数
     const code = this.$route.query.code;
@@ -18,20 +29,19 @@ export default {
     }
   },
   methods: {
-    handleCode() {
-      console.log("发送获取token请求")
-    },
-    goToSpringLogin() {
-      // 使用路由导航到登录页
-      // 构建OAuth2.0授权链接
-
-      const clientId = 'mall-id';
-      const redirectUri = 'http://localhost:9999/home';
-      const authorizationUrl = `http://localhost:8882/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
-      // 重定向到授权页面
-      window.location.href = authorizationUrl;
+    handleCode(code) {
+      this.tokenParams.token = code;
+      console.log(this.tokenParams.token)
+      // 可以导航到其他页面或执行其他操作
+      getToken(this.tokenParams.token).then(res => {
+        // ElMessage.success('发送成功');
+        console.log(res)
+      }).catch(err => {
+        ElMessage.warning(err.msg);
+      });
     }
-  },
+
+  }
 };
 </script>
 

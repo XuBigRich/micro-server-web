@@ -10,22 +10,32 @@ export const demo = data =>
     });
 // 登陆
 export const login = (data) => {
-    request({
+   return  request({
         url: '/user/login',
         method: 'post',
         data
     });
 }
-
+//退出登陆
 export const removeLogin = () => {
-    request({
+    return request({
         url: '/user/logout',
         method: 'get',
     });
 }
-//订单列表
+// getToken 这个方法 是(token) => {}
+export const getToken = (token) => {
+    return request({
+        url: '/auth/authToken',
+        method: 'get',
+        params: {
+            code: token
+        }
+    });
+}
+//订单列表  orderList直接就是这个方法 所以无需返回值
 export const orderList = () =>
-    request({
+      request({
         url: '/order/getOrderList',
         method: 'get',
     });

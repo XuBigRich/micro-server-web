@@ -4,11 +4,12 @@ import {ElMessage} from 'element-plus';
 import store from '../../store';
 
 const service = axios.create({
+    baseURL: "http://127.0.0.1:8080",
     timeout: 1000 * 60,
     headers: {
         'Content-Type': 'application/json;charset=utf-8'
     },
-    baseURL: "http://127.0.0.1:8080"
+
 });
 
 // 请求拦截器

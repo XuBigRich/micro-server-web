@@ -34,10 +34,12 @@ export default {
       console.log(this.tokenParams.token)
       // 可以导航到其他页面或执行其他操作
       getToken(this.tokenParams.token).then(res => {
-        // ElMessage.success('发送成功');
-        console.log(res)
+
+        console.log("调用成功")
+        localStorage.setItem("CLOUD-AFTER-CLASS-TOKEN", res.token);
       }).catch(err => {
-        ElMessage.warning(err.msg);
+        console.log("aaa"+err)
+        ElMessage.warning(err);
       });
     }
 

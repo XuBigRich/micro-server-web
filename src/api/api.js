@@ -10,7 +10,7 @@ export const demo = data =>
     });
 // 登陆
 export const login = (data) => {
-   return  request({
+    return request({
         url: '/user/login',
         method: 'post',
         data
@@ -35,7 +35,15 @@ export const getToken = (token) => {
 }
 //订单列表  orderList直接就是这个方法 所以无需返回值
 export const orderList = () =>
-      request({
+    request({
         url: '/order/getOrderList',
         method: 'get',
     });
+//下单
+export const order = (orderInfo) => {
+    return request({
+        url: '/business/business/dubbo/buy',
+        method: 'post',
+        data: orderInfo
+    });
+}
